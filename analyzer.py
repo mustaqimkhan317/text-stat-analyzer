@@ -1,6 +1,9 @@
 import re
 from collections import Counter
 import timeit
+import time
+import matplotlib.pyplot as plt
+
 
 class Analyzer:
     ''' Analyze text files and extract words '''
@@ -28,6 +31,27 @@ class Analyzer:
         # for word in self.words:
         #     common[word] = common.get(word, 0) + 1    
         return Counter(self.words)
+    
+    def average_word_length(self):
+        if not self.words:
+            return 0
+        total_length = sum(len(word) for word in self.words)
+        return total_length / len(self.words)
+    
+    def plot_top_10_words(self):
+        counts = Counter(self.words).most_common(10)
+
+        labels = [word for word, _ in counts]
+        values = [count for _, count in counts]
+
+        plt.figure()
+        plt.bar(labels, values)
+        plt.xlabel("Words")
+        plt.ylabel("Frequency")
+        plt.title("Top 10 Most Common Words")
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
 
 
 def main():
@@ -35,10 +59,12 @@ def main():
     text = analyze.read_file()
     words = analyze.extract_words(text)
     common = analyze.common_words()
-    print(common)
+    avg = analyze.average_word_length()
+    print(avg)
+    analyze.plot_top_10_words()
 
 if __name__ == "__main__":
-    start = timeit.default_timer()
+    start = time.perf_counter()
     main()
-    stop = timeit.default_timer()
+    stop = time.perf_counter()
     print("Time -> ", stop - start)
