@@ -1,4 +1,6 @@
 import re
+from collections import Counter
+import timeit
 
 class Analyzer:
     ''' Analyze text files and extract words '''
@@ -23,14 +25,9 @@ class Analyzer:
     def common_words(self):
         "A function for the most common words in the data file"
         common = {}
-
-        for value in self.words:
-            if value not in common:
-                common[value] = 1
-            else:
-                common[value] += 1    
-        
-        return common
+        # for word in self.words:
+        #     common[word] = common.get(word, 0) + 1    
+        return Counter(self.words)
 
 
 def main():
@@ -41,4 +38,7 @@ def main():
     print(common)
 
 if __name__ == "__main__":
+    start = timeit.default_timer()
     main()
+    stop = timeit.default_timer()
+    print("Time -> ", stop - start)
