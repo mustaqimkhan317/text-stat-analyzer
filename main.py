@@ -1,17 +1,28 @@
-from analyzer import Analyzer
 import time
+from analyzer import Analyzer
+
 
 def main():
-    analyze = Analyzer()
-    text = analyze.read_file()
-    words = analyze.extract_words(text)
-    common = analyze.common_words()
-    avg = analyze.average_word_length()
-    print(avg)
-    analyze.plot_top_10_words()
+    analyzer = Analyzer()
+
+    text = analyzer.read_file()
+    analyzer.extract_words(text)
+
+    common_words = analyzer.common_words()
+    avg_word_length = analyzer.average_word_length()
+
+    print("Text statistics")
+    print("----------------")
+    print(f"Total words       : {len(analyzer.words)}")
+    print(f"Unique words      : {len(common_words)}")
+    print(f"Avg word length   : {avg_word_length:.2f}")
+
+    analyzer.plot_top_10_words()
+
 
 if __name__ == "__main__":
     start = time.perf_counter()
     main()
-    stop = time.perf_counter()
-    print("Time -> ", stop - start)
+    end = time.perf_counter()
+
+    print(f"\nExecution time: {end - start:.6f} seconds")

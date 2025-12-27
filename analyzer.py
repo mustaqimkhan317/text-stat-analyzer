@@ -2,7 +2,6 @@ import re
 from collections import Counter
 import matplotlib.pyplot as plt
 
-
 class Analyzer:
     ''' Analyze text files and extract words '''
     def __init__(self):
